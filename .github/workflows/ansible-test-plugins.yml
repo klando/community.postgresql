@@ -63,18 +63,6 @@ jobs:
           ansible: stable-2.12
 
     steps:
-    - name: Display the path
-      run: echo $PATH
-      shell: bash
-
-    - name: Show current dir
-      run: pwd
-      shell: bash
-
-    - name: Show dir content
-      run: ls -al
-      shell: bash
-
     - name: Perform integration testing with ansible-test
       uses: ansible-community/ansible-test-gh-action@release/v1.2
       with:
