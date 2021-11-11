@@ -23,7 +23,7 @@ env:
 # PostgreSQL versions more than all python/ansible combo per OS.
 jobs:
   integration:
-    name: "Integration (Python: ${{ matrix.python }}, Ansible: ${{ matrix.ansible }}, PostgreSQL: ${{ matrix.postgresql }})"
+    name: "I9n: pg: ${{ matrix.postgresql }}, ansible: ${{ matrix.ansible }}, ansible-py: ${{ matrix.controller-python }}"
     runs-on: ubuntu-20.04
     strategy:
       # Default value, no point in getting a full run if there is an error.
@@ -31,8 +31,6 @@ jobs:
       matrix:
         # define the versions of PostgreSQL we're going to test
         postgresql:
-        - 9.4  # EOL February 13, 2020
-        - 9.5  # EOL February 11, 2021
         - 9.6  # EOL November 11, 2021
         - 10   # EOL November 10, 2022
         - 11   # EOL November 9,  2023
@@ -46,21 +44,28 @@ jobs:
         - stable-2.11
         - stable-2.12
         - devel
-        # define the version of python we're testing the collection with
-        python:
+        # define the version of python on the controller
+        controller-python:
         - 3.8
-        # define a special matrix for older python versions on latest ansible stable
-        include:
-      # - python: 2.7   # MUST, FIXME NOT SUPPORTED YET by this GHA setup
-      #   ansible: stable-2.12
-        - python: 3.5
-          ansible: stable-2.12
-        - python: 3.6
-          ansible: stable-2.12
-        - python: 3.7
-          ansible: stable-2.12
-        - python: 3.8
-          ansible: stable-2.12
+        #- 3.9 # FIXME not yet supported ?
+        # define the version of python on the managed host
+        #managed-python:
+        #- 2.7
+        #- 3.5
+        #- 3.6
+        #- 3.7
+        #- 3.8
+        #- 3.9
+        # define a special matrix for older python versions on older ansible stable versions
+        #include:
+        #- python: 2.7
+          #ansible: stable-2.9
+        #- python: 3.5
+          #ansible: stable-2.10
+        #- python: 3.6
+          #ansible: stable-2.10
+        #- python: 3.7
+          #ansible: stable-2.10
 
     steps:
     - name: Perform integration testing with ansible-test
@@ -68,7 +73,7 @@ jobs:
       with:
         ansible-core-version: ${{ matrix.ansible }}
         pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
-        python-version: ${{ matrix.python }}
-        #target-python-version: 3.9
+        python-version: ${{ matrix.controller-python }}
+        #target-python-version: ${{ matrix.managed-python }}
         testing-type: integration
         test-deps: community.general
