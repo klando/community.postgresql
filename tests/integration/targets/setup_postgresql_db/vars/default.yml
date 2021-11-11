@@ -6,5 +6,5 @@ postgresql_packages:
 pg_hba_location_debian: "/etc/postgresql/{{ pg_version }}/main/pg_hba.conf"
 pg_hba_location_redhat: "/var/lib/pgsql/data/pg_hba.conf"
 
-pg_dir_debian: "/var/lib/postgresql/9.4/main"
+pg_dir_debian: "/var/lib/postgresql/{{ pg_version }}/main"
 pg_dir_redhat: "/var/lib/pgsql/data"
