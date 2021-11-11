@@ -20,8 +20,9 @@ env:
   # Here we're explicitly running on ubuntu 20 with python 3
   # because we install python3 packages in the playbook based on the distribution
   #pg_version_file: "/home/runner/work/community.postgresql/community.postgresql/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
-  pg_version_file: "/root/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
-  #pg_version_file: "./tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  #pg_version_file: "/root/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  pg_version_file: "./tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  #/home/runner/work/community.postgresql/community.postgresql
 # All test are run ubuntu 20.04 currently because the main purpose is to evaluate
 # PostgreSQL versions more than all python/ansible combo per OS.
 jobs:
