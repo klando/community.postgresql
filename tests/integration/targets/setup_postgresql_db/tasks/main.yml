@@ -53,7 +53,7 @@
 
 - name: remove old db (RedHat)
   file:
-    path: '{{ pg_dir }}'
+    path: "{{ lookup('vars', 'pg_dir_' + ansible_os_family | lower) }}"
     state: absent
   ignore_errors: true
   when: ansible_os_family == "RedHat"
@@ -123,7 +123,7 @@
 - name: Copy pg_hba into place
   template:
     src: files/pg_hba.conf
-    dest: '{{ pg_hba_location }}'
+    dest: "{{ lookup('vars', 'pg_hba_location_' + ansible_os_family | lower) }}"
     owner: '{{ pg_user }}'
     group: '{{ pg_group }}'
     mode: '0644'
