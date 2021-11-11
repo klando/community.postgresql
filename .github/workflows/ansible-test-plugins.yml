@@ -19,8 +19,7 @@ on:
 env:
   # Here we're explicitly running on ubuntu 20 with python 3
   # because we install python3 packages in the playbook based on the distribution
-  postgresql_version_file: "/home/runner/work/community.postgresql/community.post
-gresql/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  postgresql_version_file: "/home/runner/work/community.postgresql/community.postgresql/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
 
 # All test are run ubuntu 20.04 currently because the main purpose is to evaluate
 # PostgreSQL versions more than all python/ansible combo per OS.
@@ -44,26 +43,26 @@ jobs:
         - 14   # EOL November 12, 2026
         # define the version of ansible we're testing the collection with
         ansible:
-        - stable-2.9
-        - stable-2.10
-        - stable-2.11
+        #- stable-2.9
+        #- stable-2.10
+        #- stable-2.11
         - stable-2.12
-        - devel
+        #- devel
         # define the version of python we're testing the collection with
         python:
         - 3.8
         # define a special matrix for older python versions on latest ansible stable
-        include:
-      # - python: 2.7   # MUST, FIXME NOT SUPPORTED YET by this GHA setup
-      #   ansible: stable-2.12
-        - python: 3.5
-          ansible: stable-2.12
-        - python: 3.6
-          ansible: stable-2.12
-        - python: 3.7
-          ansible: stable-2.12
-        - python: 3.8
-          ansible: stable-2.12
+        #include:
+      ## - python: 2.7   # MUST, FIXME NOT SUPPORTED YET by this GHA setup
+      ##   ansible: stable-2.12
+        #- python: 3.5
+          #ansible: stable-2.12
+        #- python: 3.6
+          #ansible: stable-2.12
+        #- python: 3.7
+          #ansible: stable-2.12
+        #- python: 3.8
+          #ansible: stable-2.12
 
     steps:
     - name: Perform integration testing with ansible-test
