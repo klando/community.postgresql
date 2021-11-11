@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       # Default value, no point in getting a full run if there is an error.
-      fail-fast: true
+      fail-fast: false
       matrix:
         # define the versions of PostgreSQL we're going to test
         postgresql:
