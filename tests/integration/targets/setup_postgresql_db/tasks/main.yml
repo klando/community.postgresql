@@ -70,37 +70,33 @@
   loop_control:
     loop_var: loop_item
 
-#
-# Install PostgreSQL 14 on Ubuntu 20.04
-- name: Install wget
-  package:
-    name: wget
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
+- name: Install on Debian family
+  block:
+  - name: Ensure PGDG Debian keys are presents
+    apt_key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      state: present
 
-- name: Add a repository
-  shell: "echo 'deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
+  - name: Ensure PG Debian repo is present
+    apt_repository:
+      repo: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+      state: present
+      filename: "pgdg"
 
-- name: Add a repository
-  shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
+  - name: Update apt cache if the last one is more than 1 hour ago
+    apt:
+      update_cache: true
+      cache_valid_time: 3600
 
-- name: Add a repository
-  shell: apt -y update
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
+  - name: Install locale needed
+    shell: 'locale-gen {{ item }}'
+    loop:
+    - es_ES
+    - pt_BR
 
-- name: Install locale needed
-  shell: 'locale-gen {{ item }}'
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
-  loop:
-  - es_ES
-  - pt_BR
-
-- name: Update locale
-  shell: 'update-locale'
-  when: ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version == '20'
-##
-#
+  - name: Update locale
+    shell: 'update-locale'
+  when: ansible_os_family == "Debian"
 
 - name: install dependencies for postgresql test
   package:
