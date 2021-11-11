@@ -1,4 +1,5 @@
 ---
+pg_version: 14
 postgresql_service: postgresql
 
 postgresql_packages:
