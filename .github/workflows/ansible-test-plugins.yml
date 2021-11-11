@@ -51,9 +51,10 @@ jobs:
         # define the version of python we're testing the collection with
         python:
         - 3.8
+        # define a special matrix for older python versions on latest ansible stable
         include:
-        #- python: 2.7   # MUST, FIXME NOT SUPPORTED YET by this GHA setup
-          #ansible: stable-2.12
+      # - python: 2.7   # MUST, FIXME NOT SUPPORTED YET by this GHA setup
+      #   ansible: stable-2.12
         - python: 3.5
           ansible: stable-2.12
         - python: 3.6
@@ -64,19 +65,11 @@ jobs:
           ansible: stable-2.12
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-      with:
-        path: ansible_collections/community/postgresql
-
-    - name: Set PostgreSQL version (${{ matrix.postgresql }})
-      run: "sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.postgresql_version_file }}"
-
     - name: Perform integration testing with ansible-test
-      uses: ansible-community/ansible-test-gh-action@release/v1
+      uses: ansible-community/ansible-test-gh-action@release/v1.2
       with:
         ansible-core-version: ${{ matrix.ansible }}
-        #pre-test-cmd: echo This runs before the ansible-test invocation
+        pre-test-cmd: "sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.postgresql_version_file }}"
         python-version: ${{ matrix.python }}
         #target-python-version: 3.9
         testing-type: integration
