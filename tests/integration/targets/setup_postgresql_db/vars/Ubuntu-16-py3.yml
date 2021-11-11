@@ -1,4 +1,0 @@
-postgresql_packages:
-  - "postgresql"
-  - "postgresql-common"
-  - "python3-psycopg2"

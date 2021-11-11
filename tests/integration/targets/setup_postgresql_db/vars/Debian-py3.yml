@@ -1,7 +1,7 @@
+---
 postgresql_packages:
-  - "apt-utils"
   - "postgresql-{{ pg_version }}"
   - "postgresql-common"
   - "python3-psycopg2"
 
-postgis: postgresql-14-postgis-3
+postgis: "postgresql-{{ pg_version }}-postgis-3"
