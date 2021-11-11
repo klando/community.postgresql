@@ -19,8 +19,9 @@ on:
 env:
   # Here we're explicitly running on ubuntu 20 with python 3
   # because we install python3 packages in the playbook based on the distribution
-  pg_version_file: "/home/runner/work/community.postgresql/community.postgresql/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
-
+  #pg_version_file: "/home/runner/work/community.postgresql/community.postgresql/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  pg_version_file: "/root/ansible_collections/community/postgresql/tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
+  #pg_version_file: "./tests/integration/targets/setup_postgresql_db/vars/Ubuntu-20-py3.yml"
 # All test are run ubuntu 20.04 currently because the main purpose is to evaluate
 # PostgreSQL versions more than all python/ansible combo per OS.
 jobs:
@@ -69,16 +70,16 @@ jobs:
       run: echo $PATH
       shell: bash
 
+    - name: Show dir content
+      run: ls -al
+      shell: bash
+
     - name: Perform integration testing with ansible-test
       uses: ansible-community/ansible-test-gh-action@release/v1.2
       with:
         ansible-core-version: ${{ matrix.ansible }}
-        pre-test-cmd: "sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
         python-version: ${{ matrix.python }}
         #target-python-version: 3.9
         testing-type: integration
         test-deps: community.general
-
-    - name: Show dir content
-      run: ls -al $PATH
-      shell: bash
