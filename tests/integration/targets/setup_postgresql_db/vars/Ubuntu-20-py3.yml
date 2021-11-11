@@ -4,7 +4,4 @@ postgresql_packages:
   - "postgresql-common"
   - "python3-psycopg2"
 
-pg_hba_location: "/etc/postgresql/14/main/pg_hba.conf"
-pg_dir: "/var/lib/postgresql/14/main"
-
 postgis: postgresql-14-postgis-3
