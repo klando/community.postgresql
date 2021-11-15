@@ -8,11 +8,13 @@ on:
     - 'plugins/**'
     - 'tests/**'
     - '.github/workflows/ansible-test-plugins.yml'
+    - '.github/filters.yml'
   pull_request:
     paths:
     - 'plugins/**'
     - 'tests/**'
     - '.github/workflows/ansible-test-plugins.yml'
+    - '.github/filters.yml'
 
 # Versions requirements:
 # https://github.com/ansible-collections/overview/blob/main/collection_requirements.rst#python-compatibility
