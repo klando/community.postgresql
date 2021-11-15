@@ -74,7 +74,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test targets: ${{ fromJSON(needs.changes.outputs.targets) }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
@@ -114,7 +114,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
@@ -150,7 +150,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
@@ -186,7 +186,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
@@ -222,7 +222,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
@@ -258,7 +258,7 @@ jobs:
     - name: |
         Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
           docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
-      uses: klando/ansible-test-gh-action@unstable/v1
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker-image }}
