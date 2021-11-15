@@ -23,7 +23,7 @@ env:
 # PostgreSQL versions more than all python/ansible combo per OS.
 jobs:
   integration:
-    name: "I9n: pg: ${{ matrix.postgresql }}, ansible: ${{ matrix.ansible }}, ansible-py: ${{ matrix.controller-python }}"
+    name: "I9n: ${{ matrix.docker-image }}:${{ matrix.target }} pg-${{ matrix.postgresql }} ansible-${{ matrix.ansible }} ansible-py-${{ matrix.controller-python }}"
     runs-on: ubuntu-20.04
     strategy:
       # Default value, no point in getting a full run if there is an error.
@@ -93,7 +93,7 @@ jobs:
         docker-image: ${{ matrix.docker.image }}
         pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
         python-version: ${{ matrix.controller-python }}
-        #target: ${{ matrix.target }}
+        target: ${{ matrix.target }}
         #target-python-version: ${{ matrix.managed-python }}
         testing-type: integration
         test-deps: community.general
