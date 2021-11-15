@@ -56,7 +56,7 @@ jobs:
         - centos7
         - opensuse15py2
         # python3:
-        - alpine3
+        #- alpine3    # FIXME no package for Alpine (build from source ?)
         - centos8
         - fedora32
         - fedora33
