@@ -54,13 +54,13 @@ jobs:
         # python2:
         - centos6
         - centos7
-        - opensuse15py2
+        #- opensuse15py2    # FIXME not suported by integration test yet
         # python3:
         #- alpine3    # FIXME no package for Alpine (build from source ?)
         - centos8
         - fedora32
         - fedora33
-        - opensuse15
+        #- opensuse15
         - ubuntu1804
         - ubuntu2004
         # define a special matrix for older python versions on older ansible stable versions
