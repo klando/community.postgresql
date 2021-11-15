@@ -90,7 +90,7 @@ jobs:
       uses: klando/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
-        docker-image: ${{ matrix.docker.image }}
+        docker-image: ${{ matrix.docker-image }}
         pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
         python-version: ${{ matrix.controller-python }}
         target: ${{ matrix.target }}
