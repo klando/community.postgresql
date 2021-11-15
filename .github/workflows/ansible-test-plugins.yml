@@ -46,8 +46,8 @@ jobs:
       matrix:
         # define the version of ansible we're testing the collection with
         ansible:
-        - stable-2.9   # EOL May 2022
-        - stable-2.10  # EOL May 2022
+        #- stable-2.9   # EOL May 2022
+        #- stable-2.10  # EOL May 2022
         - stable-2.11  # EOL May 2022
         #- stable-2.12  # EOL May 2023   # FIXME: broken
         #- devel   # FIXME: broken
@@ -57,16 +57,16 @@ jobs:
         # define docker images for managed host
         docker-image:
         # python2:
-        - centos6
+        #- centos6
         - centos7
         #- opensuse15py2    # FIXME not suported by integration test yet
         # python3:
         #- alpine3          # FIXME no package for Alpine (build from source ?)
         - centos8
-        - fedora32
-        - fedora33
+        #- fedora32
+        #- fedora33
         #- opensuse15       # FIXME not suported by integration test yet
-        - ubuntu1804
+        #- ubuntu1804
         - ubuntu2004
         # define the versions of PostgreSQL we're going to test
         postgresql:
