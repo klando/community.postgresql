@@ -1,0 +1,115 @@
+---
+default-filter: &default-filter
+- plugins/module_utils/**
+- plugins/doc_fragments/postgres.py
+- tests/integration/targets/setup_*/**
+
+postgresql_copy:
+- *default-filter
+- plugins/modules/postgresql_copy.py
+- tests/integration/targets/postgresql_copy/**
+
+postgresql_db:
+- *default-filter
+- plugins/modules/postgresql_db.py
+- tests/integration/targets/postgresql_db/**
+
+postgresql_ext:
+- *default-filter
+- plugins/modulepostgresql_ext.py
+- tests/integration/targetpostgresql_ext/**
+
+postgresql_idx:
+- *default-filter
+- plugins/modulpostgresql_idx.py
+- tests/integration/targepostgresql_idx/**
+
+postgresql_info:
+- *default-filter
+- plugins/modupostgresql_info.py
+- tests/integration/targpostgresql_info/**
+
+postgresql_lang:
+- *default-filter
+- plugins/modupostgresql_lang.py
+- tests/integration/targpostgresql_lang/**
+
+postgresql_membership:
+- *default-filter
+- plugins/modupostgresql_membership.py
+- tests/integration/targpostgresql_membership/**
+
+postgresql_owner:
+- *default-filter
+- plugins/modupostgrpostgresql_owner.py
+- tests/integration/targpostgrpostgresql_owner/**
+
+postgresql_pg_hba:
+- *default-filter
+- plugins/modupostgrppostgresql_pg.py
+- tests/integration/targpostgrppostgresql_pg/**
+
+postgresql_ping:
+- *default-filter
+- plugins/modupostgpostgresql_ping.py
+- tests/integration/targpostgpostgresql_ping/**
+
+postgresql_privs:
+- *default-filter
+- plugins/modupostgpostgresql_privs.py
+- tests/integration/targpostgpostgresql_privs/**
+
+postgresql_publication:
+- *default-filter
+- plugins/modupostgppostgresql_publication.py
+- tests/integration/targpostgppostgresql_publication/**
+
+postgresql_query:
+- *default-filter
+- plugins/modupostgppostgrepostgresql_query.py
+- tests/integration/targpostgppostgrepostgresql_query/**
+
+postgresql_schema:
+- *default-filter
+- plugins/modupostgppostgreppostgresql_schema.py
+- tests/integration/targpostgppostgreppostgresql_schema/**
+
+postgresql_sequence:
+- *default-filter
+- plugins/modupostgppostgreppopostgresql_sequence.py
+- tests/integration/targpostgppostgreppopostgresql_sequence/**
+
+postgresql_set:
+- *default-filter
+- plugins/modupostgppostgreppopostpostgresql_set.py
+- tests/integration/targpostgppostgreppopostpostgresql_set/**
+
+postgresql_slot:
+- *default-filter
+- plugins/modupostgppostgreppopospostgresql_slot.py
+- tests/integration/targpostgppostgreppopospostgresql_slot/**
+
+postgresql_subscription:
+- *default-filter
+- plugins/modupostgppostgreppopospostgresql_subscription.py
+- tests/integration/targpostgppostgreppopospostgresql_subscription/**
+
+postgresql_table:
+- *default-filter
+- plugins/modupostgppostgreppopospostgrespostgresql_table.py
+- tests/integration/targpostgppostgreppopospostgrespostgresql_table/**
+
+postgresql_tablespace:
+- *default-filter
+- plugins/modupostgppostgreppopospostgresppostgresql_tablespace.py
+- tests/integration/targpostgppostgreppopospostgresppostgresql_tablespace/**
+
+postgresql_user:
+- *default-filter
+- plugins/modupostgppostgreppopospostgresppostgrpostgresql_user.py
+- tests/integration/targpostgppostgreppopospostgresppostgrpostgresql_user/**
+
+postgresql_user_obj_stat_info:
+- *default-filter
+- plugins/modupostgppostgreppopospostgresppostgrpostgresql_user.py
+- tests/integration/targpostgppostgreppopospostgresppostgrpostgresql_user/**

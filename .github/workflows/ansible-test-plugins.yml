@@ -22,17 +22,32 @@ env:
 # All test are run ubuntu 20.04 currently because the main purpose is to evaluate
 # PostgreSQL versions more than all python/ansible combo per OS.
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      targets: ${{ steps.filter.outputs.changes }}
+    steps:
+    - uses: actions/checkout@v2
+    # For pull requests it's not necessary to checkout the code
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: '.github/filters.yml'
+
   integration:
     name: "I9n: ${{ matrix.docker-image }}:${{ matrix.target }} pg-${{ matrix.postgresql }} ansible-${{ matrix.ansible }} ansible-py-${{ matrix.controller-python }}"
     runs-on: ubuntu-20.04
+    needs: changes
     strategy:
       # Default value, no point in getting a full run if there is an error.
       fail-fast: false
       matrix:
         # define the version of ansible we're testing the collection with
         ansible:
-        - stable-2.9   # EOL May 2022
-        - stable-2.10  # EOL May 2022
+        #- stable-2.9   # EOL May 2022
+        #- stable-2.10  # EOL May 2022
         - stable-2.11  # EOL May 2022
         # FIXME: broken on 2.21 and devel:
         #- stable-2.12  # EOL May 2023
@@ -52,16 +67,16 @@ jobs:
         # define docker images for managed host
         docker-image:
         # python2:
-        - centos6
-        - centos7
+        #- centos6
+        #- centos7
         #- opensuse15py2    # FIXME not suported by integration test yet
         # python3:
         #- alpine3    # FIXME no package for Alpine (build from source ?)
-        - centos8
-        - fedora32
-        - fedora33
+        #- centos8
+        #- fedora32
+        #- fedora33
         #- opensuse15
-        - ubuntu1804
+        #- ubuntu1804
         - ubuntu2004
         # define a special matrix for older python versions on older ansible stable versions
         #include:
@@ -82,8 +97,11 @@ jobs:
         - 13   # EOL November 13, 2025
         - 14   # EOL November 12, 2026
         # define test target:
-        target:
-        - postgresql_ping
+        #target:
+        #- postgresql_ping
+        # Parse JSON array containing names of all filters matching any of changed files
+        # e.g. ['package1', 'package2'] if both package folders contains changes
+        target: ${{ fromJSON(needs.changes.outputs.targets) }}
 
     steps:
     - name: Perform integration testing with ansible-test
