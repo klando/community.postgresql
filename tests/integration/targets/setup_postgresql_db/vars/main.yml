@@ -1,8 +1,10 @@
 ---
 pg_hba_location_debian: "/etc/postgresql/{{ pg_version }}/main/pg_hba.conf"
 pg_hba_location_redhat: "/var/lib/pgsql/data/pg_hba.conf"
+pg_hba_location_suse: "/var/lib/pgsql/data/pg_hba.conf"
 pg_hba_location: "{{ lookup('vars', 'pg_hba_location_' + ansible_os_family | lower) }}"
 
 pg_dir_debian: "/var/lib/postgresql/{{ pg_version }}/main"
 pg_dir_redhat: "/var/lib/pgsql/data"
+pg_dir_suse: "/var/lib/pgsql/data"
 pg_dir: "{{ lookup('vars', 'pg_dir_' + ansible_os_family | lower) }}"
