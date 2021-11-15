@@ -38,27 +38,20 @@ jobs:
       with:
         filters: '.github/filters.yml'
 
-  integration:
+  integration-postgresql:
     name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} with ${{ matrix.ansible }} running python ${{ matrix.controller-python }}"
     runs-on: ubuntu-20.04
     needs: changes
     strategy:
       matrix:
         # define the version of ansible we're testing the collection with
-        ansible:
-        #- stable-2.9   # EOL May 2022
-        #- stable-2.10  # EOL May 2022
-        - stable-2.11  # EOL May 2022
-        #- stable-2.12  # EOL May 2023   # FIXME: broken
-        #- devel   # FIXME: broken
+        ansible: [ stable-2.11 ]  # EOL May 2022
         # define the version of python on the controller
-        controller-python:
-        - 3.8
+        controller-python: [ 3.8 ]
         # define docker images for managed host
-        docker-image:
-        # python2:
+        docker-image:         # python2:
         #- centos6
-        - centos7
+        #- centos7
         #- opensuse15py2    # FIXME not suported by integration test yet
         # python3:
         #- alpine3          # FIXME no package for Alpine (build from source ?)
@@ -70,7 +63,7 @@ jobs:
         - ubuntu2004
         # define the versions of PostgreSQL we're going to test
         postgresql:
-        #- 9.6  # EOL November 11, 2021   # FIXME error in GHA
+        - 9.6  # EOL November 11, 2021   # FIXME error in GHA
         - 10   # EOL November 10, 2022
         - 11   # EOL November 9,  2023
         - 12   # EOL November 14, 2024
@@ -95,5 +88,185 @@ jobs:
         # that's why we do not use following option yet.
         # FIXME make sure the collection supports all expected python versions
         #target-python-version: ${{ matrix.managed-python }}
+        testing-type: integration
+        test-deps: community.general
+
+  integration-devel:
+    name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} ansible running on python ${{ matrix.controller-python }}"
+    runs-on: ubuntu-20.04
+    needs: changes
+    strategy:
+      matrix:
+        # define the version of ansible we're testing the collection with
+        ansible: [ devel ]
+        # define the version of python on the controller
+        controller-python: [ 3.8 ]
+        # define docker images for managed host
+        docker-image:
+        - centos6     # python 2
+        - ubuntu2004  # python 3
+        # define the versions of PostgreSQL we're going to test
+        postgresql:
+        - 9.6  # EOL November 11, 2021
+        - 14   # EOL November 12, 2026
+        # define test target:
+        # Parse JSON array containing names of all filters matching any of changed files
+        target: ${{ fromJSON(needs.changes.outputs.targets) }} # 22 tests at maximum...
+
+    steps:
+    - name: |
+        Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
+          docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
+      uses: klando/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        python-version: ${{ matrix.controller-python }}
+        target: ${{ matrix.target }}
+        testing-type: integration
+        test-deps: community.general
+
+  integration-212:
+    name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} ansible running on python ${{ matrix.controller-python }}"
+    runs-on: ubuntu-20.04
+    needs: changes
+    strategy:
+      matrix:
+        # define the version of ansible we're testing the collection with
+        ansible: [ stable-2.12 ]  # EOL May 2023
+        # define the version of python on the controller
+        controller-python: [ 3.8 ]
+        # define docker images for managed host
+        docker-image:
+        - centos6     # python 2
+        - ubuntu2004  # python 3
+        # define the versions of PostgreSQL we're going to test
+        postgresql:
+        - 9.6  # EOL November 11, 2021
+        - 14   # EOL November 12, 2026
+        # define test target:
+        # Parse JSON array containing names of all filters matching any of changed files
+        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+
+    steps:
+    - name: |
+        Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
+          docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
+      uses: klando/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        python-version: ${{ matrix.controller-python }}
+        target: ${{ matrix.target }}
+        testing-type: integration
+        test-deps: community.general
+
+  integration-211:
+    name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} ansible running on python ${{ matrix.controller-python }}"
+    runs-on: ubuntu-20.04
+    needs: changes
+    strategy:
+      matrix:
+        # define the version of ansible we're testing the collection with
+        ansible: [ stable-2.11 ]  # EOL May 2022
+        # define the version of python on the controller
+        controller-python: [ 3.8 ]
+        # define docker images for managed host
+        docker-image:
+        - centos6     # python 2
+        - ubuntu2004  # python 3
+        # define the versions of PostgreSQL we're going to test
+        postgresql:
+        - 9.6  # EOL November 11, 2021
+        - 14   # EOL November 12, 2026
+        # define test target:
+        # Parse JSON array containing names of all filters matching any of changed files
+        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+
+    steps:
+    - name: |
+        Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
+          docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
+      uses: klando/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        python-version: ${{ matrix.controller-python }}
+        target: ${{ matrix.target }}
+        testing-type: integration
+        test-deps: community.general
+
+  integration-210:
+    name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} ansible running on python ${{ matrix.controller-python }}"
+    runs-on: ubuntu-20.04
+    needs: changes
+    strategy:
+      matrix:
+        # define the version of ansible we're testing the collection with
+        ansible: [ stable-2.10 ]  # EOL May 2022
+        # define the version of python on the controller
+        controller-python: [ 3.8 ]
+        # define docker images for managed host
+        docker-image:
+        - centos6     # python 2
+        - ubuntu2004  # python 3
+        # define the versions of PostgreSQL we're going to test
+        postgresql:
+        - 9.6  # EOL November 11, 2021
+        - 14   # EOL November 12, 2026
+        # define test target:
+        # Parse JSON array containing names of all filters matching any of changed files
+        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+
+    steps:
+    - name: |
+        Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
+          docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
+      uses: klando/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        python-version: ${{ matrix.controller-python }}
+        target: ${{ matrix.target }}
+        testing-type: integration
+        test-deps: community.general
+
+  integration-29:
+    name: "I9n: ${{ matrix.target }}:${{ matrix.postgresql }} on ${{ matrix.docker-image }} ansible running on python ${{ matrix.controller-python }}"
+    runs-on: ubuntu-20.04
+    needs: changes
+    strategy:
+      matrix:
+        # define the version of ansible we're testing the collection with
+        ansible: [ stable-2.9 ]  # EOL May 2022
+        # define the version of python on the controller
+        controller-python: [ 3.8 ]
+        # define docker images for managed host
+        docker-image:
+        - centos6     # python 2
+        - ubuntu2004  # python 3
+        # define the versions of PostgreSQL we're going to test
+        postgresql:
+        - 9.6  # EOL November 11, 2021
+        - 14   # EOL November 12, 2026
+        # define test target:
+        # Parse JSON array containing names of all filters matching any of changed files
+        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+
+    steps:
+    - name: |
+        Perform integration testing with ansible-test: test target: ${{ matrix.target }}, PostgreSQL: ${{ matrix.postgresql }}
+          docker-image: ${{ matrix.docker-image }}, Ansible: ${{ matrix.ansible }}, Running python: ${{ matrix.controller-python }}
+      uses: klando/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+        python-version: ${{ matrix.controller-python }}
+        target: ${{ matrix.target }}
         testing-type: integration
         test-deps: community.general
