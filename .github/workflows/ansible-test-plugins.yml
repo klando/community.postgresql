@@ -31,8 +31,8 @@ jobs:
       matrix:
         # define the version of ansible we're testing the collection with
         ansible:
-        #- stable-2.9   # EOL May 2022
-        #- stable-2.10  # EOL May 2022
+        - stable-2.9   # EOL May 2022
+        - stable-2.10  # EOL May 2022
         - stable-2.11  # EOL May 2022
         # FIXME: broken on 2.21 and devel:
         #- stable-2.12  # EOL May 2023
