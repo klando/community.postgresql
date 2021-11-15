@@ -83,7 +83,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         target:
-        - setup_pkg_mgr
+        - postgresql_ping
 
     steps:
     - name: Perform integration testing with ansible-test
