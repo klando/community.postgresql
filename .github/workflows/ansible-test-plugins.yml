@@ -87,7 +87,7 @@ jobs:
 
     steps:
     - name: Perform integration testing with ansible-test
-      uses: ansible-community/ansible-test-gh-action@unstable/v1
+      uses: klando/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker-image: ${{ matrix.docker.image }}
