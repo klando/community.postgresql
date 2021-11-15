@@ -1,154 +1,154 @@
 ---
 postgresql_copy:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modules/postgresql_copy.py
-- tests/integration/targets/postgresql_copy/**
+  - plugins/modules/postgresql_copy.py
+  - tests/integration/targets/postgresql_copy/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_db:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modules/postgresql_db.py
-- tests/integration/targets/postgresql_db/**
+  - plugins/modules/postgresql_db.py
+  - tests/integration/targets/postgresql_db/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_ext:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modulepostgresql_ext.py
-- tests/integration/targetpostgresql_ext/**
+  - plugins/modules/postgresql_ext
+  - tests/integration/targets/postgresql_ext/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_idx:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modulpostgresql_idx.py
-- tests/integration/targepostgresql_idx/**
+  - plugins/modules/postgresql_idx
+  - tests/integration/targets/postgresql_idx/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_info:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgresql_info.py
-- tests/integration/targpostgresql_info/**
+  - plugins/modules/postgresql_info
+  - tests/integration/targets/postgresql_info/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_lang:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgresql_lang.py
-- tests/integration/targpostgresql_lang/**
+  - plugins/modules/postgresql_lang
+  - tests/integration/targets/postgresql_lang/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_membership:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgresql_membership.py
-- tests/integration/targpostgresql_membership/**
+  - plugins/modules/postgresql_membership
+  - tests/integration/targets/postgresql_membership/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_owner:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgrpostgresql_owner.py
-- tests/integration/targpostgrpostgresql_owner/**
+  - plugins/modules/postgresql_owner
+  - tests/integration/targets/postgresql_owner/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_pg_hba:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgrppostgresql_pg.py
-- tests/integration/targpostgrppostgresql_pg/**
+  - plugins/modules/postgresql_pg_hba
+  - tests/integration/targets/postgresql_pg_hba/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_ping:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgpostgresql_ping.py
-- tests/integration/targpostgpostgresql_ping/**
+  - plugins/modules/postgresql_ping
+  - tests/integration/targets/postgresql_ping/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_privs:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgpostgresql_privs.py
-- tests/integration/targpostgpostgresql_privs/**
+  - plugins/modules/postgresql_privs
+  - tests/integration/targets/postgresql_privs/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_publication:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgresql_publication.py
-- tests/integration/targpostgppostgresql_publication/**
+  - plugins/modules/postgresql_publication
+  - tests/integration/targets/postgresql_publication/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_query:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgrepostgresql_query.py
-- tests/integration/targpostgppostgrepostgresql_query/**
+  - plugins/modules/postgresql_query
+  - tests/integration/targets/postgresql_query/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_schema:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppostgresql_schema.py
-- tests/integration/targpostgppostgreppostgresql_schema/**
+  - plugins/modules/postgresql_schema
+  - tests/integration/targets/postgresql_schema/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_sequence:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopostgresql_sequence.py
-- tests/integration/targpostgppostgreppopostgresql_sequence/**
+  - plugins/modules/postgresql_sequence
+  - tests/integration/targets/postgresql_sequence/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_set:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopostpostgresql_set.py
-- tests/integration/targpostgppostgreppopostpostgresql_set/**
+  - plugins/modules/postgresql_set
+  - tests/integration/targets/postgresql_set/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_slot:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgresql_slot.py
-- tests/integration/targpostgppostgreppopospostgresql_slot/**
+  - plugins/modules/postgresql_slot
+  - tests/integration/targets/postgresql_slot/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_subscription:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgresql_subscription.py
-- tests/integration/targpostgppostgreppopospostgresql_subscription/**
+  - plugins/modules/postgresql_subscription
+  - tests/integration/targets/postgresql_subscription/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_table:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgrespostgresql_table.py
-- tests/integration/targpostgppostgreppopospostgrespostgresql_table/**
+  - plugins/modules/postgresql_table
+  - tests/integration/targets/postgresql_table/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_tablespace:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgresppostgresql_tablespace.py
-- tests/integration/targpostgppostgreppopospostgresppostgresql_tablespace/**
+  - plugins/modules/postgresql_tablespace
+  - tests/integration/targets/postgresql_tablespace/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_user:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgresppostgrpostgresql_user.py
-- tests/integration/targpostgppostgreppopospostgresppostgrpostgresql_user/**
+  - plugins/modules/postgresql_user
+  - tests/integration/targets/postgresql_user/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
 
 postgresql_user_obj_stat_info:
-- plugins/module_utils/**
-- plugins/doc_fragments/postgres.py
-- tests/integration/targets/setup_*/**
-- plugins/modupostgppostgreppopospostgresppostgrpostgresql_user.py
-- tests/integration/targpostgppostgreppopospostgresppostgrpostgresql_user/**
+  - plugins/modules/postgresql_user_obj_stat_info
+  - tests/integration/targets/postgresql_user_obj_stat_info/**
+  - plugins/module_utils/**
+  - plugins/doc_fragments/postgres.py
+  - tests/integration/targets/setup_*/**
