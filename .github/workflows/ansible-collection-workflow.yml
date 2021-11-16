@@ -44,7 +44,7 @@ jobs:
         filters: '.github/filters.yml'
 
   integration:
-    name: "I9n: ${{ matrix.target }}:${{ inputs.extra }} on ${{ matrix.docker-image }} with ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
+    name: "target: ${{ matrix.target }} with extra: ${{ inputs.extra }} on ${{ matrix.docker-image }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
@@ -75,7 +75,7 @@ jobs:
       with:
         ansible-core-version: ${{ matrix.ansible }}
         docker: ${{ matrix.docker }}
-        pre-test-cmd: ${{ matrix.ansible-python }}
+        pre-test-cmd: ${{ inputs.pre-test-cmd }}
         python-version: ${{ matrix.ansible-python }}
         target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
         # The docker-image are based on either python2 or python3 already
