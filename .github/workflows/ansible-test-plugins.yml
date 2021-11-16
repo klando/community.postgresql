@@ -80,7 +80,7 @@ jobs:
         docker-image: ${{ matrix.docker-image }}
         pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
         python-version: ${{ matrix.controller-python }}
-        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
         # The docker-image are based on either python2 or python3 already,
         # that's why we do not use following option yet.
         # FIXME make sure the collection supports all expected python versions
@@ -108,7 +108,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         # Parse JSON array containing names of all filters matching any of changed files
-        target: ${{ fromJSON(needs.changes.outputs.targets) }} # 22 tests at maximum...
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }} # 22 tests at maximum...
 
     steps:
     - name: |
@@ -144,7 +144,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         # Parse JSON array containing names of all filters matching any of changed files
-        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
 
     steps:
     - name: |
@@ -180,7 +180,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         # Parse JSON array containing names of all filters matching any of changed files
-        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
 
     steps:
     - name: |
@@ -216,7 +216,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         # Parse JSON array containing names of all filters matching any of changed files
-        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
 
     steps:
     - name: |
@@ -252,7 +252,7 @@ jobs:
         - 14   # EOL November 12, 2026
         # define test target:
         # Parse JSON array containing names of all filters matching any of changed files
-        target: ${{ fromJSON(needs.changes.outputs.targets) }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
 
     steps:
     - name: |
