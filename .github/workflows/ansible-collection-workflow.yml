@@ -68,7 +68,7 @@ jobs:
         - ubuntu2004
 
     steps:
-    - name: ansible-test integration --docker ${{ matrix.docker }} ${{ fromJSON(needs.changes.outputs.targets) }} (Ansible: ${{ matrix.ansible }} running python: ${{ matrix.ansible-python }}
+    - name: 'ansible-test integration --docker ${{ matrix.docker }} ${{ fromJSON(needs.changes.outputs.targets) }} (Ansible: ${{ matrix.ansible }} running python: ${{ matrix.ansible-python }}'
       uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible }}

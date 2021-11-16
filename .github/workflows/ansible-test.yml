@@ -19,7 +19,7 @@ env:
 
 jobs:
   integration:
-    uses: ./ansible-collection-workflow.yml
+    uses: klando/community.postgresql/.github/workflow/ansible-collection-workflow.yml@fix-integration-tests
     with:
       ansible: stable-2.11
       extra: 13
