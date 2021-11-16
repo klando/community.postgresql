@@ -23,4 +23,4 @@ jobs:
     with:
       ansible: stable-2.11
       extra: 13
-      pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"
+      pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ${{ env.pg_version_file }}"
