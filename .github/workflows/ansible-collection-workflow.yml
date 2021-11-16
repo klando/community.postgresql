@@ -44,7 +44,7 @@ jobs:
         filters: '.github/filters.yml'
 
   integration:
-    name: "${{ matrix.target }} ${{ matrix.docker-image }} ${{ inputs.extra }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
+    name: "${{ matrix.target }} ${{ matrix.docker }} ${{ inputs.extra }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
