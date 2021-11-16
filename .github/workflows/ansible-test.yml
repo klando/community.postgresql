@@ -15,13 +15,10 @@ on:
     - '.github/workflows/ansible-test-plugins.yml'
     - '.github/filters.yml'
 
-env:
-  pg_version_file: "./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
-
 jobs:
   integration:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
       ansible: stable-2.11
       extra: 13
-      pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ${{ env.pg_version_file }}"
+      pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
