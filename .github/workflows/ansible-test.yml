@@ -1,0 +1,26 @@
+---
+name: Plugins CI
+on:
+  push:
+    paths:
+    - 'plugins/**'
+    - 'tests/**'
+    - '.github/workflows/ansible-test-plugins.yml'
+    - '.github/filters.yml'
+  pull_request:
+    paths:
+    - 'plugins/**'
+    - 'tests/**'
+    - '.github/workflows/ansible-test-plugins.yml'
+    - '.github/filters.yml'
+
+env:
+  pg_version_file: "./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
+
+jobs:
+  integration:
+    uses: ./ansible-collection-workflow.yml
+    with:
+      ansible: stable-2.11
+      extra: 13
+      pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql }}\"/g' ${{ env.pg_version_file }}"

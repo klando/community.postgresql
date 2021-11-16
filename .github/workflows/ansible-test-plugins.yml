@@ -3,18 +3,18 @@
 # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
 name: Plugins CI
 on:
-  push:
-    paths:
-    - 'plugins/**'
-    - 'tests/**'
-    - '.github/workflows/ansible-test-plugins.yml'
-    - '.github/filters.yml'
-  pull_request:
-    paths:
-    - 'plugins/**'
-    - 'tests/**'
-    - '.github/workflows/ansible-test-plugins.yml'
-    - '.github/filters.yml'
+  #push:
+    #paths:
+    #- 'plugins/**'
+    #- 'tests/**'
+    #- '.github/workflows/ansible-test-plugins.yml'
+    #- '.github/filters.yml'
+  #pull_request:
+    #paths:
+    #- 'plugins/**'
+    #- 'tests/**'
+    #- '.github/workflows/ansible-test-plugins.yml'
+    #- '.github/filters.yml'
 
 # Versions requirements:
 # https://github.com/ansible-collections/overview/blob/main/collection_requirements.rst#python-compatibility

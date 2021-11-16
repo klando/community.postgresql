@@ -1,0 +1,82 @@
+---
+name: Ansible Collection Workflow
+on:
+  workflow_call:
+    inputs:
+      ansible:
+        description: ansible version
+        default: 'devel'
+        type: string
+        required: false
+      ansible-python:
+        description: python version used by ansible
+        default: '3.8'
+        type: string
+        required: false
+      extra:
+        description: Extra parameters for the matrix
+        default:
+        required: false
+        type: string
+      pre-test-cmd:
+        description: Parameter for action paths-filter
+        default:
+        required: false
+        type: string
+      runs-on:
+        description: docker image to run GHA
+        default: 'ubuntu-latest'
+        type: string
+        required: false
+
+jobs:
+  changes:
+    runs-on: ${{ inputs.runs-on }}
+    outputs:
+      targets: ${{ steps.filter.outputs.changes }}
+    steps:
+    # FIXME For pull requests it's not necessary to checkout the code
+    - uses: actions/checkout@v2
+    # Run change detection to build tests
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: '.github/filters.yml'
+
+  integration:
+    name: "I9n: ${{ matrix.target }}:${{ inputs.extra }} on ${{ matrix.docker-image }} with ${{ matrix.ansible }} running python ${{ matrix.controller-python }}"
+    runs-on: ${{ inputs.runs-on }}
+    needs: changes
+    strategy:
+      matrix:
+        ansible:
+        - ${{ inputs.ansible }}
+        ansible-python:
+        - ${{ inputs.ansible-python }}
+        docker:
+        # python2:
+        - centos6
+        - centos7
+        - opensuse15py2
+        # python3:
+        - alpine3
+        - centos8
+        - fedora32
+        - fedora33
+        - opensuse15
+        - ubuntu1804
+        - ubuntu2004
+
+    steps:
+    - name: ansible-test integration --docker ${{ matrix.docker }} ${{ fromJSON(needs.changes.outputs.targets) }} (Ansible: ${{ matrix.ansible }} running python: ${{ matrix.ansible-python }}
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible }}
+        docker: ${{ matrix.docker }}
+        pre-test-cmd: ${{ inputs.ansible-python }}
+        python-version: ${{ matrix.ansible-python }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
+        # The docker-image are based on either python2 or python3 already
+        #target-python-version: ${{ matrix.managed-python }}
+        testing-type: integration
+        test-deps: community.general
