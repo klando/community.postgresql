@@ -39,7 +39,7 @@ jobs:
         filters: '.github/filters.yml'
 
   test-python:
-    name: "target-python: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible }} | python: ${{ matrix.ansible-python }}"
+    name: "target-python: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
@@ -86,7 +86,7 @@ jobs:
         test-deps: ${{ inputs.test-deps }}
 
   test-docker:
-    name: "docker-image: ${{ matrix.docker-image }} | ansible: ${{ matrix.ansible }} | python: ${{ matrix.ansible-python }}"
+    name: "docker-image: ${{ matrix.docker-image }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
