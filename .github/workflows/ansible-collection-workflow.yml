@@ -40,8 +40,8 @@ jobs:
     outputs:
       targets: ${{ steps.filter.outputs.changes }}
     steps:
-    # FIXME For pull requests it's not necessary to checkout the code
     - uses: actions/checkout@v2
+      if: ${{ github.event_name != 'pull_request' }}
     # Run change detection to build tests
     - uses: dorny/paths-filter@v2
       id: filter
@@ -49,7 +49,7 @@ jobs:
         filters: '.github/filters.yml'
 
   test-python:
-    name: "t-py: ${{ matrix.target-python-version }} | ans: ${{ matrix.ansible-core-version }} | py: ${{ matrix.python-version }}"
+    name: "${{ matrix.target-python-version }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     if: inputs.test-python
@@ -97,7 +97,7 @@ jobs:
         test-deps: ${{ inputs.test-deps }}
 
   test-docker:
-    name: "${{ matrix.docker-image }} | ans: ${{ matrix.ansible-core-version }} | py: ${{ matrix.python-version }}"
+    name: "${{ matrix.docker-image }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     if: inputs.test-docker

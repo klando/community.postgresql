@@ -14,7 +14,7 @@
 
 - name: End the play for hosts that run OpenSuse
   meta: end_host
-  when: ansible_distribution == 'OpenSuse'
+  when: ansible_distribution == 'Suse'
 
 - name: python 2
   set_fact:
