@@ -3,21 +3,6 @@ name: Ansible Collection Workflow
 on:
   workflow_call:
     inputs:
-      ansible:
-        description: ansible version
-        default: 'devel'
-        type: string
-        required: false
-      ansible-python:
-        description: python version used by ansible
-        default: '3.8'
-        type: string
-        required: false
-      extra:
-        description: Extra parameters for the matrix
-        default:
-        required: false
-        type: string
       pre-test-cmd:
         description: Parameter for action paths-filter
         default:
@@ -28,6 +13,16 @@ on:
         default: 'ubuntu-latest'
         type: string
         required: false
+      test-deps:
+        description: Parameter for ansible-test-gh-action
+        default:
+        type: string
+        required: false
+      testing-type:
+        description: Parameter for ansible-test-gh-action
+        default: integration
+        type: string
+        required: true
 
 jobs:
   changes:
@@ -43,42 +38,77 @@ jobs:
       with:
         filters: '.github/filters.yml'
 
-  integration:
-    name: "${{ matrix.target }} ${{ matrix.docker }} ${{ inputs.extra }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
+  test-python:
+    name: "${{ matrix.target }} ${{ matrix.docker-image }} ${{ inputs.extra }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
       matrix:
-        ansible:
-        - ${{ inputs.ansible }}
-        ansible-python:
-        - ${{ inputs.ansible-python }}
-        docker:
-        # python2:
-        - centos6
-        - centos7
-        - opensuse15py2
-        # python3:
-        - alpine3
-        - centos8
-        - fedora32
-        - fedora33
-        - opensuse15
-        - ubuntu1804
-        - ubuntu2004
-        extra:
-        - ${{ inputs.extra }}
+        # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
+        ansible-core-version:
+        - stable-2.9       # EOL May 2022
+        - stable-2.10      # EOL May 2022
+        - stable-2.11      # EOL May 2022
+        - stable-2.12      # EOL May 2023
+        - devel
+        python-version:
+        - 3.8
+        target-python-version:
+        - 3.9
+        - 3.8
+        - 3.7
+        - 3.6
+        - 3.5
+        - 2.7
+        - 2.6
 
     steps:
-    - name: 'ansible-test integration --docker ${{ matrix.docker }} ${{ needs.changes.outputs.targets }} (Ansible: ${{ matrix.ansible }} running python: ${{ matrix.ansible-python }}'
+    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
       uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
-        ansible-core-version: ${{ matrix.ansible }}
-        docker: ${{ matrix.docker }}
+        ansible-core-version: ${{ matrix.ansible-core-version }}
         pre-test-cmd: ${{ inputs.pre-test-cmd }}
-        python-version: ${{ matrix.ansible-python }}
+        python-version: ${{ matrix.python-version }}
         target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
-        # The docker-image are based on either python2 or python3 already
-        #target-python-version: ${{ matrix.managed-python }}
-        testing-type: integration
-        test-deps: community.general
+        target-python-version: ${{ matrix.target-python-version }}
+        testing-type: ${{ inputs.testing-type }}
+        test-deps: ${{ inputs.test-deps }}
+
+  test-docker:
+    name: "${{ matrix.target }} ${{ matrix.docker-image }} ${{ inputs.extra }} by ${{ matrix.ansible }} running python ${{ matrix.ansible-python }}"
+    runs-on: ${{ inputs.runs-on }}
+    needs: changes
+    strategy:
+      matrix:
+        # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
+        ansible-core-version:
+        - stable-2.9       # EOL May 2022
+        - stable-2.10      # EOL May 2022
+        - stable-2.11      # EOL May 2022
+        - stable-2.12      # EOL May 2023
+        - devel
+        python-version:
+        - 3.8
+        docker-image:
+        - centos6          # python2
+        - centos7          # python2
+        - opensuse15py2    # python2
+        - alpine3          # python3
+        - centos8          # python3
+        - fedora32         # python3
+        - fedora33         # python3
+        - opensuse15       # python3
+        - ubuntu1804       # python3
+        - ubuntu2004       # python3
+
+    steps:
+    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible-core-version }}
+        docker-image: ${{ matrix.docker-image }}
+        pre-test-cmd: ${{ inputs.pre-test-cmd }}
+        python-version: ${{ matrix.python-version }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
+        testing-type: ${{ inputs.testing-type }}
+        test-deps: ${{ inputs.test-deps }}
