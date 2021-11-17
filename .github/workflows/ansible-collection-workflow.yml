@@ -3,7 +3,7 @@ name: Ansible Collection Workflow
 on:
   workflow_call:
     inputs:
-      failfast:
+      fail-fast:
         default: true
         description: GitHubAction parameter for jobs strategy
         required: false
@@ -70,7 +70,7 @@ jobs:
         testing-type: ${{ inputs.testing-type }}
         test-deps: ${{ inputs.test-deps }}
     strategy:
-      fail-fast: ${{ inputs.failfast }}
+      fail-fast: ${{ inputs.fail-fast }}
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
         ansible-core-version:
@@ -118,7 +118,7 @@ jobs:
         testing-type: ${{ inputs.testing-type }}
         test-deps: ${{ inputs.test-deps }}
     strategy:
-      fail-fast: ${{ inputs.failfast }}
+      fail-fast: ${{ inputs.fail-fast }}
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
         ansible-core-version:
