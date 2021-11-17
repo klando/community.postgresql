@@ -3,7 +3,7 @@ name: Ansible Collection Workflow
 on:
   workflow_call:
     inputs:
-      fail-fast:
+      failfast:
         description: GitHubAction parameter for jobs strategy
         default: true
         required: boolean
@@ -59,7 +59,7 @@ jobs:
     needs: changes
     if: inputs.test-python
     strategy:
-      fail-fast: ${{ inputs.fail-fast }}
+      fail-fast: ${{ inputs.failfast }}
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
         ansible-core-version:
@@ -108,7 +108,7 @@ jobs:
     needs: changes
     if: inputs.test-docker
     strategy:
-      fail-fast: ${{ inputs.fail-fast }}
+      fail-fast: ${{ inputs.failfast }}
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
         ansible-core-version:
