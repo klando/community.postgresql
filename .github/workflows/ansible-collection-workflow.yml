@@ -39,7 +39,7 @@ jobs:
         filters: '.github/filters.yml'
 
   test-python:
-    name: "target-python: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
+    name: "t-py: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
@@ -86,7 +86,7 @@ jobs:
         test-deps: ${{ inputs.test-deps }}
 
   test-docker:
-    name: "docker-image: ${{ matrix.docker-image }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
+    name: "${{ matrix.docker-image }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     strategy:
@@ -139,17 +139,17 @@ jobs:
           docker-image: fedora35         # python 3.10
 
         exclude:
-        - ansible-core-version: 2.9
+        - ansible-core-version: stable-2.9
           docker-image: alpine3
-        - ansible-core-version: 2.9
+        - ansible-core-version: stable-2.9
           docker-image: fedora34
-        - ansible-core-version: 2.9
+        - ansible-core-version: stable-2.9
           docker-image: ubuntu2004
-        - ansible-core-version: 2.10
+        - ansible-core-version: stable-2.10
           docker-image: alpine3
-        - ansible-core-version: 2.10
+        - ansible-core-version: stable-2.10
           docker-image: fedora34
-        - ansible-core-version: 2.11
+        - ansible-core-version: stable-2.11
           docker-image: fedora34
         - ansible-core-version: devel
           docker-image: centos6
