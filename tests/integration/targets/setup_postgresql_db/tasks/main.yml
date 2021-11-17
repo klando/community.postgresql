@@ -3,6 +3,19 @@
 # and should not be used as examples of how to write Ansible roles #
 ####################################################################
 
+# Do not run test on known not working OS
+- name: End the play for hosts that run Alpine
+  meta: end_host
+  when: ansible_distribution == 'Alpine'
+
+- name: End the play for hosts that run Fedora
+  meta: end_host
+  when: ansible_distribution == 'Fedora'
+
+- name: End the play for hosts that run OpenSuse
+  meta: end_host
+  when: ansible_distribution == 'OpenSuse'
+
 - name: python 2
   set_fact:
     python_suffix: ''
