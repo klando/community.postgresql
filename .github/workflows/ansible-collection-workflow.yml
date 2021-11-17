@@ -4,38 +4,38 @@ on:
   workflow_call:
     inputs:
       failfast:
-        description: GitHubAction parameter for jobs strategy
         default: true
-        required: boolean
-        type: string
+        description: GitHubAction parameter for jobs strategy
+        required: false
+        type: boolean
       pre-test-cmd:
-        description: Parameter for action paths-filter
         default:
+        description: Parameter for action paths-filter
         required: false
         type: string
       runs-on:
-        description: docker image to run GHA
         default: 'ubuntu-latest'
+        description: docker image to run GHA
         type: string
         required: false
       test-deps:
-        description: Parameter for ansible-test-gh-action
         default:
+        description: Parameter for ansible-test-gh-action
         type: string
         required: false
       test-docker:
-        description: Test on all docker images
         default: true
+        description: Test on all docker images
         type: boolean
         required: false
       test-python:
-        description: Test on all python versions (target)
         default: true
+        description: Test on all python versions (target)
         type: boolean
         required: false
       testing-type:
-        description: Parameter for ansible-test-gh-action
         default: integration
+        description: Parameter for ansible-test-gh-action
         type: string
         required: true
 
@@ -54,10 +54,21 @@ jobs:
         filters: '.github/filters.yml'
 
   test-python:
-    name: "${{ matrix.target-python-version }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
-    runs-on: ${{ inputs.runs-on }}
-    needs: changes
     if: inputs.test-python
+    name: "${{ matrix.target-python-version }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
+    needs: changes
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+    - name: "ansible-test ${{ inputs.testing-type }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}"
+      uses: ansible-community/ansible-test-gh-action@unstable/v1
+      with:
+        ansible-core-version: ${{ matrix.ansible-core-version }}
+        pre-test-cmd: ${{ inputs.pre-test-cmd }}
+        python-version: ${{ matrix.python-version }}
+        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
+        target-python-version: ${{ matrix.target-python-version }}
+        testing-type: ${{ inputs.testing-type }}
+        test-deps: ${{ inputs.test-deps }}
     strategy:
       fail-fast: ${{ inputs.failfast }}
       matrix:
@@ -90,23 +101,22 @@ jobs:
         - ansible-core-version: devel
           target-python-version: 2.6
 
+  test-docker:
+    if: inputs.test-docker
+    name: "${{ matrix.docker-image }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
+    needs: changes
+    runs-on: ${{ inputs.runs-on }}
     steps:
     - name: "ansible-test ${{ inputs.testing-type }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}"
       uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible-core-version }}
+        docker-image: ${{ matrix.docker-image }}
         pre-test-cmd: ${{ inputs.pre-test-cmd }}
         python-version: ${{ matrix.python-version }}
         target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
-        target-python-version: ${{ matrix.target-python-version }}
         testing-type: ${{ inputs.testing-type }}
         test-deps: ${{ inputs.test-deps }}
-
-  test-docker:
-    name: "${{ matrix.docker-image }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
-    runs-on: ${{ inputs.runs-on }}
-    needs: changes
-    if: inputs.test-docker
     strategy:
       fail-fast: ${{ inputs.failfast }}
       matrix:
@@ -186,15 +196,3 @@ jobs:
           docker-image: centos6
         - ansible-core-version: devel
           docker-image: centos8
-
-    steps:
-    - name: "ansible-test ${{ inputs.testing-type }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}"
-      uses: ansible-community/ansible-test-gh-action@unstable/v1
-      with:
-        ansible-core-version: ${{ matrix.ansible-core-version }}
-        docker-image: ${{ matrix.docker-image }}
-        pre-test-cmd: ${{ inputs.pre-test-cmd }}
-        python-version: ${{ matrix.python-version }}
-        target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
-        testing-type: ${{ inputs.testing-type }}
-        test-deps: ${{ inputs.test-deps }}
