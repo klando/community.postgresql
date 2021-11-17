@@ -42,6 +42,7 @@ jobs:
   integration-14:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
@@ -49,6 +50,7 @@ jobs:
   units-14:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
@@ -56,6 +58,7 @@ jobs:
   sanity-14:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
@@ -64,6 +67,7 @@ jobs:
   integration-13:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
@@ -71,6 +75,7 @@ jobs:
   units-13:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
@@ -78,6 +83,7 @@ jobs:
   sanity-13:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"13\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       test-deps: community.general
