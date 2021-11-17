@@ -63,7 +63,7 @@ jobs:
         - 2.6
 
     steps:
-    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
+    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
       uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible-core-version }}
@@ -102,7 +102,7 @@ jobs:
         - ubuntu2004       # python3
 
     steps:
-    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
+    - name: 'ansible-test integration --docker ${{ matrix.docker-image }} (Ansible: ${{ matrix.ansible-core-version }} running python: ${{ matrix.ansible-python }}'
       uses: ansible-community/ansible-test-gh-action@unstable/v1
       with:
         ansible-core-version: ${{ matrix.ansible-core-version }}
