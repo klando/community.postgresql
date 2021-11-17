@@ -18,6 +18,16 @@ on:
         default:
         type: string
         required: false
+      test-docker:
+        description: Test on all docker images
+        default: true
+        type: boolean
+        required: false
+      test-python:
+        description: Test on all python versions (target)
+        default: true
+        type: boolean
+        required: false
       testing-type:
         description: Parameter for ansible-test-gh-action
         default: integration
@@ -42,6 +52,7 @@ jobs:
     name: "t-py: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
+    if: inputs.test-python
     strategy:
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
@@ -89,6 +100,7 @@ jobs:
     name: "${{ matrix.docker-image }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
+    if: inputs.test-docker
     strategy:
       matrix:
         # https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html#ansible-core-changelogs

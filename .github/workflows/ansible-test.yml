@@ -19,6 +19,8 @@ jobs:
   ansible-test:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
+      test-python: false
+      test-docker: true
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"${{ matrix.postgresql-version }}\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-deps: community.general
       testing-type: ${{ matrix.testing-type }}
