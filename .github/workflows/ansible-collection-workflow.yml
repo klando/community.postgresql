@@ -49,7 +49,7 @@ jobs:
         filters: '.github/filters.yml'
 
   test-python:
-    name: "t-py: ${{ matrix.target-python-version }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
+    name: "t-py: ${{ matrix.target-python-version }} | ans: ${{ matrix.ansible-core-version }} | py: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     if: inputs.test-python
@@ -97,7 +97,7 @@ jobs:
         test-deps: ${{ inputs.test-deps }}
 
   test-docker:
-    name: "${{ matrix.docker-image }} | ansible: ${{ matrix.ansible-core-version }} | python: ${{ matrix.python-version }}"
+    name: "${{ matrix.docker-image }} | ans: ${{ matrix.ansible-core-version }} | py: ${{ matrix.python-version }}"
     runs-on: ${{ inputs.runs-on }}
     needs: changes
     if: inputs.test-docker
@@ -127,28 +127,40 @@ jobs:
         include:
         - ansible-core-version: stable-2.9
           docker-image: fedora30         # python 3.7
+          python-version: 3.8
         - ansible-core-version: stable-2.9
           docker-image: fedora31         # python 3.7
+          python-version: 3.8
         - ansible-core-version: stable-2.9
           docker-image: ubuntu1604       # python 2.7
+          python-version: 3.8
         - ansible-core-version: stable-2.10
           docker-image: fedora30         # python 3.7
+          python-version: 3.8
         - ansible-core-version: stable-2.10
           docker-image: fedora31         # python 3.7
+          python-version: 3.8
         - ansible-core-version: stable-2.10
           docker-image: fedora32         # python 3.8
+          python-version: 3.8
         - ansible-core-version: stable-2.10
           docker-image: ubuntu1604       # python 2.7
+          python-version: 3.8
         - ansible-core-version: stable-2.11
           docker-image: fedora32         # python 3.8
+          python-version: 3.8
         - ansible-core-version: stable-2.11
           docker-image: fedora33         # python 3.9
+          python-version: 3.8
         - ansible-core-version: stable-2.12
           docker-image: centos6          # python 2.6
+          python-version: 3.8
         - ansible-core-version: stable-2.12
           docker-image: fedora33         # python 3.9
+          python-version: 3.8
         - ansible-core-version: devel
           docker-image: fedora35         # python 3.10
+          python-version: 3.8
 
         exclude:
         - ansible-core-version: stable-2.9
