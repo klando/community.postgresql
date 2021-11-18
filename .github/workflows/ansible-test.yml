@@ -60,7 +60,7 @@ jobs:
     with:
       fail-fast: false
       pre-test-cmd: "ls -al && sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
-      test-python: false
+      test-docker: false
       test-deps: community.general
       testing-type: sanity
 
