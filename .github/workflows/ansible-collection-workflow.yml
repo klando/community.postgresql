@@ -73,9 +73,9 @@ jobs:
         ; echo "Targets: ${targets}"
         ; echo "::set-output name=targets::${targets}"
         ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -not -exec test -e '{}'/aliases \;  -printf "%p "))
-        ; nottargets="${dirs[@]/%/\/**}"
-        ; echo "Nottargets: ${nottargets}"
-        ; echo "::set-output name=nottargets::${nottargets}"
+        ; nottargets=("${dirs[@]/%/\/**}")
+        ; echo "Nottargets: ${nottargets[@]}"
+        ; echo "::set-output name=nottargets::${nottargets[@]}"
         ; filters=
         ; for m in ${modules}
         ;  do l=("plugins/modules/$m.py" "tests/integration/targets/$m/**" "plugins/module_utils/**") l+=("${nottargets[@]}") filters+="$m:$(jq --compact-output --null-input '$ARGS.positional' --args "${l[@]}"),"
