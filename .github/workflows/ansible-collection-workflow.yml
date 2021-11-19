@@ -90,9 +90,9 @@ jobs:
       id: deps
       run: >-
         echo Find requirements
-        ; testdeps=$(yq eval '.integration_tests_dependencies' tests/requirements.yml --no-colors --no-doc)
+        ; testdeps=$(yq eval --no-colors --no-doc '.integration_tests_dependencies' tests/requirements.yml)
         ; echo "Test-deps: ${testdeps}"
-        ; echo "::set-output name=testdeps::${testdeps}"
+        ; echo "::set-output name=test-deps::${testdeps}"
       shell: bash
     - name: Close an expandable block of code
       run: >-
