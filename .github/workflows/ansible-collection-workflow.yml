@@ -45,6 +45,9 @@ jobs:
     outputs:
       modules: ${{ steps.find.outputs.modules }}
       module_utils: ${{ steps.find.outputs.module_utils }}
+      targets: ${{ steps.find.outputs.targets }}
+      nottargets: ${{ steps.find.outputs.nottargets }}
+      filters: ${{ steps.find.outputs.filters }}
     steps:
     - uses: actions/checkout@v2
       if: ${{ github.event_name != 'pull_request' }}
@@ -113,7 +116,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: '.github/filters.yml'
+        filters: ${{ fromJSON{steps.find.outputs.filters} }}
 
   test-python:
     if: inputs.test-python
