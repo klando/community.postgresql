@@ -1,20 +1,7 @@
 ---
 name: Units
 on:
-  push:
-    paths:
-    - 'plugins/**'
-    - 'tests/**'
-    - '.github/workflows/ansible-collection-workflow.yml'
-    - '.github/workflows/ansible-test-units.yml'
-    - '.github/filters.yml'
-  pull_request:
-    paths:
-    - 'plugins/**'
-    - 'tests/**'
-    - '.github/workflows/ansible-collection-workflow.yml'
-    - '.github/workflows/ansible-test-units.yml'
-    - '.github/filters.yml'
+  workflow_dispatch:
 
 jobs:
   sanity:
