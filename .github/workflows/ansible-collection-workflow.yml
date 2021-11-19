@@ -65,6 +65,23 @@ jobs:
         ; module_utils=${files[@]%.py}
         ; echo "Modules: ${module_utils}"
         ; echo "::set-output name=module_utils::${module_utils}"
+        ; dirs=(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -exec test -e '{}'/aliases \; -printf '%f ')
+        ; targets=${dirs}
+        ; echo "Targets: ${targets}"
+        ; echo "::set-output name=targets::${targets}"
+        ; dirs=(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -not -exec test -e '{}'/aliases \;  -printf "%p ")
+        ; nottargets=${dirs}
+        ; echo "Nottargets: ${nottargets}"
+        ; echo "::set-output name=nottargets::${nottargets}"
+
+        ; filters=
+        ; for m in ${modules}
+        ; do
+          filter="{\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]} "
+          filters="${filters}${filter},"
+        ; done
+        ; filters="{${filters}}"
+        ; echo "::set-output name=filters::${filters}"
       shell: bash
     - name: Close an expandable block of code
       run: >-
