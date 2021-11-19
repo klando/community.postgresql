@@ -76,7 +76,7 @@ jobs:
         ; do
           filter="{\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]} "
           filters="${filters}${filter},"
-        ; done
+          done
         ; filters="{${filters}}"
         ; echo "::set-output name=filters::${filters}"
       shell: bash
