@@ -56,14 +56,15 @@ jobs:
     - name: Find modules and module_utils
       id: find
       run: >-
-        files=($(basename -a $(find ./plugins/modules/*.py -type f)))
-        modules=${files[@]%.py}
-        echo "Modules: ${modules}"
-        echo "::set-output name=modules::${modules}"
-        files=($(basename -a $(find ./plugins/module_utils/*.py -type f)))
-        module_utils=${files[@]%.py}
-        echo "Modules: ${module_utils}"
-        echo "::set-output name=module_utils::${module_utils}"
+        echo Finding files...
+        ; files=($(basename -a $(find ./plugins/modules/*.py -type f)))
+        ; modules=${files[@]%.py}
+        ; echo "Modules: ${modules}"
+        ; echo "::set-output name=modules::${modules}"
+        ; files=($(basename -a $(find ./plugins/module_utils/*.py -type f)))
+        ; module_utils=${files[@]%.py}
+        ; echo "Modules: ${module_utils}"
+        ; echo "::set-output name=module_utils::${module_utils}"
       shell: bash
     - name: Close an expandable block of code
       run: >-
