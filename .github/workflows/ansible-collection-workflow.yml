@@ -48,10 +48,11 @@ jobs:
       targets: ${{ steps.find.outputs.targets }}
       nottargets: ${{ steps.find.outputs.nottargets }}
       filters: ${{ steps.find.outputs.filters }}
+      test-deps: ${{ steps.find.outputs.testdeps }}
     steps:
     - uses: actions/checkout@v2
       if: ${{ github.event_name != 'pull_request' }}
-    # Return list of modules, module_utils
+    # Return list of modules, module_utils, ...
     - name: Open an expandable block of code
       run: >-
         echo ::group::Find modules and module_utils
@@ -85,28 +86,21 @@ jobs:
         ; echo "::set-output name=filters::${filters}"
       shell: bash
       #;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${${nottargets[@]#\",\"}%???}\"]" filters+="${filter},"
+    - name: Find dependencies of tested modules
+      id: find
+      run: >-
+        echo Find requirements
+        ; testdeps=$(yq -c .integration_tests_dependencies tests/requirements.yml)
+        ; echo "Test-deps: ${testdeps}"
+        ; echo "::set-output name=testdeps::${testdeps}"
+      shell: bash
     - name: Close an expandable block of code
       run: >-
         echo ::endgroup::
       shell: bash
 
-  #deps:
-    #runs-on: ${{ inputs.runs-on }}
-    #outputs:
-      #filters: ${{ steps.filter.outputs.changes }}
-    #steps:
-    #- uses: actions/checkout@v2
-      #if: ${{ github.event_name != 'pull_request' }}
-    ## Run change detection to build tests
-    #- uses: dorny/paths-filter@v2
-      #id: filter
-      #with:
-        #filters: '.github/filters.yml'
-
   changes:
-    needs:
-    #- deps
-    - plugins
+    needs: plugins
     runs-on: ${{ inputs.runs-on }}
     outputs:
       targets: ${{ steps.filter.outputs.changes }}
@@ -134,7 +128,7 @@ jobs:
         target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
         target-python-version: ${{ matrix.target-python-version }}
         testing-type: ${{ inputs.testing-type }}
-        test-deps: ${{ inputs.test-deps }}
+        test-deps: ${{ needs.plugins.outputs.test-deps }}
     strategy:
       fail-fast: ${{ inputs.fail-fast }}
       matrix:
@@ -182,7 +176,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         target: ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}
         testing-type: ${{ inputs.testing-type }}
-        test-deps: ${{ inputs.test-deps }}
+        test-deps: ${{ needs.plugins.outputs.test-deps }}
     strategy:
       fail-fast: ${{ inputs.fail-fast }}
       matrix:
