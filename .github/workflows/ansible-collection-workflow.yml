@@ -66,11 +66,13 @@ jobs:
         ; echo "Module_utils: ${module_utils}"
         ; echo "::set-output name=module_utils::${module_utils}"
         ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -exec test -e '{}'/aliases \; -printf '%f '))
-        ; echo "Targets: ${dirs[@]}"
-        ; echo "::set-output name=targets::${dirs[@]}"
+        ; targets=${dirs[@]}
+        ; echo "Targets: ${targets}"
+        ; echo "::set-output name=targets::${targets}"
         ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -not -exec test -e '{}'/aliases \;  -printf "%p "))
-        ; echo "Nottargets: ${dirs[@]}"
-        ; echo "::set-output name=nottargets::${dirs[@]}"
+        ; nottargets=${dirs[@]}
+        ; echo "Nottargets: ${nottargets}"
+        ; echo "::set-output name=nottargets::${nottargets}"
         ; filters=
         ; for m in ${modules}
         ;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]" filters="${filters}${filter},"
