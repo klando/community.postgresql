@@ -57,31 +57,26 @@ jobs:
       id: find
       run: >-
         echo Finding files...
-
         ; files=($(basename -a $(find ./plugins/modules/*.py -type f)))
         ; modules=${files[@]%.py}
         ; echo "Modules: ${modules}"
         ; echo "::set-output name=modules::${modules}"
-
         ; files=($(basename -a $(find ./plugins/module_utils/*.py -type f)))
         ; module_utils=${files[@]%.py}
         ; echo "Module_utils: ${module_utils}"
         ; echo "::set-output name=module_utils::${module_utils}"
-
-        ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -exec test -e '{}'/aliases \; -printf '%f '))
+        ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -exec test -e '{}'/aliases \
+        ; -printf '%f '))
         ; echo "Targets: ${dirs[@]}"
         ; echo "::set-output name=targets::${dirs[@]}"
-
-        ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -not -exec test -e '{}'/aliases \;  -printf "%p "))
+        ; dirs=($(find ./tests/integration/targets/ -mindepth 1 -maxdepth 1 -type d -not -exec test -e '{}'/aliases \
+        ;  -printf "%p "))
         ; echo "Nottargets: ${dirs[@]}"
         ; echo "::set-output name=nottargets::${dirs[@]}"
-
         ; filters=
         ; for m in ${modules}
-        ;  do
-          filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]"
-          filters="${filters}${filter},"
-          done
+        ;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]" filters="${filters}${filter},"
+        ;  done
         ; filters="{${filters}}"
         ; echo "::set-output name=filters::${filters}"
       shell: bash
