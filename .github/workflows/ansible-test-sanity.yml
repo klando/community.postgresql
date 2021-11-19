@@ -1,0 +1,29 @@
+---
+name: Sanity
+on:
+  pull_request:
+    paths:
+    - 'plugins/**'
+    - 'tests/**'
+    - '.github/workflows/ansible-collection-workflow.yml'
+    - '.github/workflows/ansible-test-sanity.yml'
+    - '.github/filters.yml'
+  push:
+    paths:
+    - 'plugins/**'
+    - 'tests/**'
+    - '.github/workflows/ansible-collection-workflow.yml'
+    - '.github/workflows/ansible-test-sanity.yml'
+    - '.github/filters.yml'
+  schedule:
+  # Every day at 3:14
+  - cron:  '14 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  sanity:
+    uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
+    with:
+      fail-fast: false
+      test-deps: community.general
+      testing-type: sanity
