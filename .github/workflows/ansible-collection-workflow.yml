@@ -57,8 +57,8 @@ jobs:
       id: find
       run: >-
         echo Finding files...
-        files=($(basename -a $(find ./plugins/modules/*.py -type f)))
 
+        ; files=($(basename -a $(find ./plugins/modules/*.py -type f)))
         ; modules=${files[@]%.py}
         ; echo "Modules: ${modules}"
         ; echo "::set-output name=modules::${modules}"
