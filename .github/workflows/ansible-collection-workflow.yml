@@ -110,7 +110,9 @@ jobs:
   test-python:
     if: inputs.test-python
     name: "${{ matrix.target-python-version }} | ${{ matrix.ansible-core-version }} | ${{ matrix.python-version }}"
-    needs: changes
+    needs:
+    - changes
+    - deps
     runs-on: ${{ inputs.runs-on }}
     steps:
     - name: "ansible-test ${{ inputs.testing-type }} ${{ join(fromJSON(needs.changes.outputs.targets), ' ') }}"
