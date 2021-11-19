@@ -78,7 +78,7 @@ jobs:
         ; echo "::set-output name=nottargets::${nottargets}"
         ; filters=
         ; for m in ${modules}
-        ;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${nottargets}\"]" filters="${filters}${filter},"
+        ;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${${nottargets[@]#\",\"}%???}\"]" filters+="${filter},"
         ;  done
         ; filters="{${filters%?}}"
         ; echo "Filters: ${filters}"
