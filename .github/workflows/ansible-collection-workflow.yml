@@ -78,7 +78,7 @@ jobs:
         ; echo "::set-output name=nottargets::${nottargets}"
         ; filters=
         ; for m in ${modules}
-        ;  do l=("plugins/modules/$m" "tests/integration/targets/$m/**" "plugins/module_utils/**" ${nottargets[@]}) filters+="$m:$(jq --compact-output --null-input '$ARGS.positional' --args \"${l[@]}\"),"
+        ;  do l=("plugins/modules/$m.py" "tests/integration/targets/$m/**" "plugins/module_utils/**" ${nottargets[@]}) filters+="$m:$(jq --compact-output --null-input '$ARGS.positional' --args "${l[@]}"),"
         ;  done
         ; filters="{${filters%?}}"
         ; echo "Filters: ${filters}"
