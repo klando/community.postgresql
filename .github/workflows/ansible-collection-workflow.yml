@@ -48,7 +48,7 @@ jobs:
       targets: ${{ steps.find.outputs.targets }}
       nottargets: ${{ steps.find.outputs.nottargets }}
       filters: ${{ steps.find.outputs.filters }}
-      test-deps: ${{ steps.find.outputs.testdeps }}
+      test-deps: ${{ steps.deps.outputs.testdeps }}
     steps:
     - uses: actions/checkout@v2
       if: ${{ github.event_name != 'pull_request' }}
@@ -87,7 +87,7 @@ jobs:
       shell: bash
       #;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${${nottargets[@]#\",\"}%???}\"]" filters+="${filter},"
     - name: Find dependencies of tested modules
-      id: find
+      id: deps
       run: >-
         echo Find requirements
         ; testdeps=$(yq -c .integration_tests_dependencies tests/requirements.yml)
