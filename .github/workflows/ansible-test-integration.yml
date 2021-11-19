@@ -16,7 +16,7 @@ on:
     - '.github/filters.yml'
 
 jobs:
-  14:
+  pg-14:
     uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
     with:
       fail-fast: false
