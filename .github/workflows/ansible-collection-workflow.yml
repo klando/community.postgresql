@@ -18,11 +18,6 @@ on:
         description: docker image to run GHA
         type: string
         required: false
-      test-deps:
-        default:
-        description: Parameter for ansible-test-gh-action
-        type: string
-        required: false
       test-docker:
         default: true
         description: Test on all docker images
@@ -85,7 +80,6 @@ jobs:
         ; echo "Filters: ${filters}"
         ; echo "::set-output name=filters::${filters}"
       shell: bash
-      #;  do filter="\"$m\":[\"plugins/modules/$m\",\"tests/integration/targets/$m/**\",\"plugins/module_utils/**\",\"${${nottargets[@]#\",\"}%???}\"]" filters+="${filter},"
     - name: Find dependencies of tested modules
       id: deps
       run: >-
