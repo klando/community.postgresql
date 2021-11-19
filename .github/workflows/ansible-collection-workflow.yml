@@ -116,7 +116,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: ${{ fromJSON{steps.find.outputs.filters} }}
+        filters: ${{ fromJSON(steps.find.outputs.filters) }}
 
   test-python:
     if: inputs.test-python
