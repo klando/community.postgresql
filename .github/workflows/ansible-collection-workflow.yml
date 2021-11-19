@@ -48,7 +48,7 @@ jobs:
       targets: ${{ steps.find.outputs.targets }}
       nottargets: ${{ steps.find.outputs.nottargets }}
       filters: ${{ steps.find.outputs.filters }}
-      test-deps: ${{ steps.deps.outputs.testdeps }}
+      test-deps: ${{ steps.deps.outputs.test-deps }}
     steps:
     - uses: actions/checkout@v2
       if: ${{ github.event_name != 'pull_request' }}
