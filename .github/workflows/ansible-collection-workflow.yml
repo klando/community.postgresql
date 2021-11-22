@@ -38,8 +38,10 @@ jobs:
   define-matrix:
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - uses: c2main/ansible-test-versions-gh-action@test
-        id: default-matrix
+    - uses: c2main/ansible-test-versions-gh-action@test
+      id: default-matrix
+      with:
+        python-version: 3.9
 
   plugins:
     needs: define-matrix
