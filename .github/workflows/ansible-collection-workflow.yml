@@ -49,7 +49,7 @@ jobs:
     - uses: c2main/ansible-test-versions-gh-action@test
       id: default-matrix
       with:
-        python-version: 3.9
+        python-version: '[ "3.9" ]'
 
   plugins:
     runs-on: ${{ inputs.runs-on }}
