@@ -36,6 +36,14 @@ on:
 
 jobs:
   define-matrix:
+    outputs:
+      ansible-core-version: ${{ steps.default-matrix.outputs.ansible-core-version }}
+      docker-exclude: ${{ steps.default-matrix.outputs.docker-exclude }}
+      docker-image: ${{ steps.default-matrix.outputs.docker-image }}
+      docker-include: ${{ steps.default-matrix.outputs.docker-include }}
+      python-version: ${{ steps.default-matrix.outputs.python-version }}
+      target-python-exclude: ${{ steps.default-matrix.outputs.target-python-exclude }}
+      target-python-version: ${{ steps.default-matrix.outputs.target-python-version }}
     runs-on: ${{ inputs.runs-on }}
     steps:
     - uses: c2main/ansible-test-versions-gh-action@test
