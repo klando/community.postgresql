@@ -22,7 +22,7 @@ on:
 
 jobs:
   sanity:
-    uses: klando/community.postgresql/.github/workflows/ansible-collection-workflow.yml@fix-integration-tests
+    uses: c2main/ansible-collection-gh-workflow/.github/workflows/workflow.yml@devel
     with:
       fail-fast: false
       testing-type: sanity
