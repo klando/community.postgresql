@@ -20,9 +20,6 @@ jobs:
     uses: c2main/ansible-collection-gh-workflow/.github/workflows/workflow.yml@devel
     with:
       fail-fast: false
-      pre-test-cmd: >
-        ls -al
-        && sed -i 's/^pg_version:.*/pg_version: \"14\"/g'
-             ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
+      pre-test-cmd: "sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
       testing-type: integration
