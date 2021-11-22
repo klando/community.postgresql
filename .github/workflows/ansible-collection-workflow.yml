@@ -46,7 +46,7 @@ jobs:
       target-python-version: ${{ steps.default-matrix.outputs.target-python-version }}
     runs-on: ${{ inputs.runs-on }}
     steps:
-    - uses: c2main/ansible-test-versions-gh-action@test
+    - uses: data-bene/ansible-test-versions-gh-action@test
       id: default-matrix
       with:
         python-version: '[ "3.9" ]'
