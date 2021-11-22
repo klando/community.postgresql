@@ -19,6 +19,8 @@ jobs:
   pg-14:
     uses: c2main/ansible-collection-gh-workflow/.github/workflows/workflow.yml@devel
     with:
+      docker-image: '[ "ubuntu2004" ]'
+      docker-include: '[]'
       fail-fast: false
       pre-test-cmd: "sed -i 's/^pg_version:.*/pg_version: \"14\"/g' ./tests/integration/targets/setup_postgresql_db/defaults/main.yml"
       test-python: false
